@@ -237,7 +237,6 @@ class ServerManagerView {
 		const webviewListeners = {
 			'webview-reload': 'reload',
 			back: 'back',
-			focus: 'focus',
 			forward: 'forward',
 			zoomIn: 'zoomIn',
 			zoomOut: 'zoomOut',
@@ -283,6 +282,10 @@ class ServerManagerView {
 
 		ipcRenderer.on('leave-fullscreen', () => {
 			this.$fullscreenPopup.classList.remove('show');
+		});
+
+		window.addEventListener('focus', () => {
+			this.tabs[this.activeTabIndex].webview.focus();
 		});
 
 		ipcRenderer.on('render-taskbar-icon', (event, messageCount) => {
